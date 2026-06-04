@@ -1,10 +1,11 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
+import type { RefObject } from "react";
 
 /* ═══════════════════════════════════════════════════════════════
    HOOKS
 ═══════════════════════════════════════════════════════════════ */
-function useTypewriter(words, speed = 70, pause = 2200) {
+function useTypewriter(words: string[], speed: number = 70, pause: number = 2200): string {
   const [text, setText] = useState("");
   const [wi, setWi] = useState(0);
   const [del, setDel] = useState(false);
@@ -24,9 +25,9 @@ function useTypewriter(words, speed = 70, pause = 2200) {
   return text;
 }
 
-function useInView(threshold = 0.12) {
+function useInView(threshold: number = 0.12) {
   const ref = useRef(null);
-  const [inView, setInView] = useState(false);
+  const [inView, setInView] = useState<boolean>(false);
   useEffect(() => {
     const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) setInView(true); }, { threshold });
     if (ref.current) o.observe(ref.current);
@@ -35,8 +36,8 @@ function useInView(threshold = 0.12) {
   return [ref, inView];
 }
 
-function useMouse() {
-  const [pos, setPos] = useState({ x: 0, y: 0 });
+function useMouse(): { x: number; y: number } {
+  const [pos, setPos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   useEffect(() => {
     const h = (e) => setPos({ x: e.clientX, y: e.clientY });
     window.addEventListener("mousemove", h);
@@ -292,7 +293,7 @@ body::before {
 ═══════════════════════════════════════════════════════════════ */
 function Cursor() {
   const mouse = useMouse();
-  const [hov, setHov] = useState(false);
+  const [hov, setHov] = useState<boolean>(false);
   useEffect(() => {
     const els = document.querySelectorAll("a,button,.glass-card,.spill,.stag");
     const on  = () => setHov(true);
@@ -312,7 +313,7 @@ function Cursor() {
    NAV
 ═══════════════════════════════════════════════════════════════ */
 function Nav() {
-  const [solid, setSolid] = useState(false);
+  const [solid, setSolid] = useState<boolean>(false);
   useEffect(() => {
     const h = () => setSolid(window.scrollY > 50);
     window.addEventListener("scroll", h);
@@ -388,9 +389,9 @@ function Hero() {
 
             {/* Bio */}
             <p className="in-up" style={{ animationDelay:".38s", fontSize:15.5, lineHeight:1.8, color:"rgba(232,232,240,.5)", maxWidth:500, marginBottom:48 }}>
-              Python Backend & AI Engineer. Currently architecting high-performance FastAPI services for live airline operations at{" "}
-              <span style={{ color:"var(--chalk)", fontWeight:600 }}>M1 Solution</span> Proven track record of leading development teams at WorldWise and CodeCelix
-              {" "}<span style={{ color:"#818cf8" }}>Specialized in shipping production-grade GenAI pipelines (LangGraph/RAG) and scalable backends. Focused entirely on clean code and system architecture.</span>
+              Python Backend Developer. Currently at{" "}
+              <span style={{ color:"var(--chalk)", fontWeight:600 }}>M1 Solution</span> architecting FastAPI services for live airline-ops. Led teams at WorldWise & CodeCelix.
+              {" "}<span style={{ color:"#818cf8" }}>2nd year. Already in production.</span>
             </p>
 
             {/* CTAs */}
@@ -433,9 +434,9 @@ function Hero() {
                   <img src="/1.png" alt="Muhammad Tashif" style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}
                     onError={e => { e.target.style.display="none"; }} />
                   {/* Code overlay on hover */}
-                  <div style={{ position:"absolute", bottom:43, left:78, right:36, background:"rgba(12,12,16,.85)", borderRadius:10, padding:"12px 14px", backdropFilter:"blur(8px)", border:"1px solid var(--wire)" }}>
+                  <div style={{ position:"absolute", bottom:43, left:67, right:16, background:"rgba(12,12,16,.85)", borderRadius:10, padding:"12px 14px", backdropFilter:"blur(8px)", border:"1px solid var(--wire)" }}>
                     <div style={{ fontFamily:"var(--mono)", fontSize:10.5, color:"#6ee7b7", marginBottom:4 }}>$ whoami</div>
-                    <div style={{ fontFamily:"var(--mono)", fontSize:11, color:"rgba(232,232,240,.6)" }}>Muhammad Tashif — Backend Dev</div>
+                    <div style={{ fontFamily:"var(--mono)", fontSize:11, color:"rgba(232,232,240,.6)" }}>Muhammad Tashif — Python Dev</div>
                   </div>
                 </div>
               </div>
@@ -475,9 +476,9 @@ function Marquee() {
 /* ═══════════════════════════════════════════════════════════════
    PROJECTS
 ═══════════════════════════════════════════════════════════════ */
-function ProjectCard({ p, i }) {
+function ProjectCard({ p, i }: { p: typeof PROJECTS[0]; i: number }) {
   const [ref, inView] = useInView(0.08);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   return (
     <div ref={ref} className="glass-card" style={{
@@ -589,9 +590,7 @@ function Experience() {
         {/* Education note */}
         <div style={{ marginTop:48, padding:"20px 24px", background:"rgba(99,102,241,.06)", border:"1px solid rgba(99,102,241,.15)", borderRadius:14, display:"flex", alignItems:"center", gap:16 }}>
           <div style={{ width:36, height:36, borderRadius:10, background:"rgba(99,102,241,.15)", border:"1px solid rgba(99,102,241,.25)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, fontSize:18 }}>🎓</div>
-          
           <div>
-            
             <div style={{ fontFamily:"var(--display)", fontSize:14, fontWeight:600, color:"var(--chalk)", marginBottom:2 }}>B.Sc. Information Technology — University of the Punjab, Lahore</div>
           </div>
         </div>
@@ -634,7 +633,7 @@ function Skills() {
    CONTACT
 ═══════════════════════════════════════════════════════════════ */
 function Contact() {
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState<boolean>(false);
   const [ref, inView] = useInView(0.1);
   const copy = async () => {
     try { await navigator.clipboard.writeText("tashiftoor12345@gmail.com"); setCopied(true); setTimeout(()=>setCopied(false), 2200); } catch {}
