@@ -26,7 +26,7 @@ function useTypewriter(words: string[], speed: number = 70, pause: number = 2200
 }
 
 function useInView(threshold: number = 0.12) {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState<boolean>(false);
   useEffect(() => {
     const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) setInView(true); }, { threshold });
