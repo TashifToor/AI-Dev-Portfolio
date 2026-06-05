@@ -39,8 +39,7 @@ function useInView(threshold: number = 0.12) {
 function useMouse(): { x: number; y: number } {
   const [pos, setPos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   useEffect(() => {
-    const h = (e) => setPos({ x: e.clientX, y: e.clientY });
-    window.addEventListener("mousemove", h);
+  const h = (e: MouseEvent) => setPos({ x: e.clientX, y: e.clientY });    window.addEventListener("mousemove", h);
     return () => window.removeEventListener("mousemove", h);
   }, []);
   return pos;
