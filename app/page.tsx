@@ -49,49 +49,49 @@ function useMouse(): { x: number; y: number } {
 ═══════════════════════════════════════════════════════════════ */
 const PROJECTS = [
   {
-    id: "bizledger", num: "01",
-    name: "BizLedger",
-    sub: "Multi-Tenant SaaS Accounting Platform",
+    id: "lexarai", num: "01",
+    name: "LexarAI",
+    sub: "Agentic Document Intelligence — US Legal Tech Firm",
     year: "2025",
-    stack: ["Django REST Framework", "PostgreSQL", "JWT", "Docker", "Celery", "React"],
-    problem: "Tenant data isolation as a hard architectural guarantee — not a convention. N+1 query patterns and schema leakage were existential risks.",
-    solution: "Row-level tenant-isolated PostgreSQL schema. 7 DRF apps, RBAC, full Docker containerisation. Zero cross-tenant query surface by design.",
-    metrics: [{ v: "7", l: "Django Apps" }, { v: "1K+", l: "Transactions" }, { v: "0", l: "Data Leaks" }],
+    stack: ["FastAPI", "LangChain", "FAISS", "OpenAI GPT-4", "PostgreSQL", "Docker"],
+    problem: "A US-based legal technology company needed an AI backend that could ingest thousands of case documents and answer attorney queries with source citations. Off-the-shelf LLM APIs hallucinated statutes and case numbers — inadmissible in legal workflows.",
+    solution: "Designed a multi-stage RAG pipeline with hybrid BM25 + dense retrieval. Citation-anchored response format enforced at prompt level. FastAPI async backend handling 200+ concurrent requests. Deployed on client's AWS infrastructure via Docker Compose.",
+    metrics: [{ v: "200+", l: "Concurrent Users" }, { v: "91%", l: "Citation Accuracy" }, { v: "1.4s", l: "Avg. Response" }],
+    color: "#34d399",
+    grad: "linear-gradient(135deg, rgba(52,211,153,.15) 0%, transparent 60%)",
+  },
+  {
+    id: "vaultops", num: "02",
+    name: "VaultOps",
+    sub: "Inventory & Operations API — UK E-commerce Client",
+    year: "2025",
+    stack: ["Django REST Framework", "PostgreSQL", "Celery", "Redis", "JWT", "Docker"],
+    problem: "A UK-based e-commerce client had fragmented warehouse data across 3 legacy systems with no unified API. Manual stock reconciliation caused £40K/month in oversell losses. They needed a real-time inventory engine with webhook support for Shopify and their WMS.",
+    solution: "Built a Django-based inventory microservice with event-driven stock sync via Celery. Webhook dispatcher integrated with Shopify and warehouse WMS. Row-level locking on critical stock mutations. Full Docker deployment with zero-downtime migrations.",
+    metrics: [{ v: "3", l: "Systems Unified" }, { v: "99.6%", l: "Stock Accuracy" }, { v: "£40K", l: "Monthly Savings" }],
     color: "#4f8ef7",
     grad: "linear-gradient(135deg, rgba(79,142,247,.15) 0%, transparent 60%)",
   },
   {
-    id: "talentiq", num: "02",
+    id: "talentiq", num: "03",
     name: "TalentIQ",
     sub: "Agentic RAG Recruitment Engine",
     year: "2026",
     stack: ["FastAPI", "LangGraph", "FAISS", "LLaMA 3.3 70B", "PostgreSQL", "Next.js"],
-    problem: "Manual CV screening at scale. Semantic search over 500+ profiles requires vector indexing. Multi-step reasoning over unstructured PDF data demands agentic orchestration.",
-    solution: "LangGraph multi-step pipeline. FastAPI + JWT + FAISS. Real-time Next.js dashboard. Score, skill-gap delta, and fast-track flag per candidate.",
+    problem: "Manual CV screening at scale is unsustainable. Semantic search over 500+ profiles requires vector indexing. Multi-step reasoning over unstructured PDF data demands agentic orchestration.",
+    solution: "LangGraph multi-step pipeline (Router → Retrieve → Grade → Rewrite → Generate). FastAPI + JWT + FAISS vector store. Real-time Next.js dashboard with score, skill-gap delta, and fast-track flag per candidate.",
     metrics: [{ v: "60%", l: "Faster Screening" }, { v: "500+", l: "CV Profiles" }, { v: "70B", l: "LLaMA Params" }],
     color: "#a78bfa",
     grad: "linear-gradient(135deg, rgba(167,139,250,.15) 0%, transparent 60%)",
   },
-  {
-    id: "medicare", num: "03",
-    name: "MediCare AI",
-    sub: "Medical RAG with Anti-Hallucination Guards",
-    year: "2026",
-    stack: ["LangChain", "ChromaDB", "FastAPI", "SentenceTransformers", "Docker", "Groq"],
-    problem: "Medical retrieval has zero hallucination tolerance. Standard LLM responses over large corpora drift from source. Concurrent load must not degrade latency.",
-    solution: "RAG over 8-doc medical corpus with SentenceTransformer embeddings. Source-grounded prompt guards rejecting out-of-corpus responses. Dockerised for scale.",
-    metrics: [{ v: "94%", l: "Retrieval Acc." }, { v: "<2s", l: "Latency" }, { v: "~0%", l: "Hallucination" }],
-    color: "#34d399",
-    grad: "linear-gradient(135deg, rgba(52,211,153,.15) 0%, transparent 60%)",
-  },
 ];
 
 const EXP = [
-  { role: "Backend Developer", co: "M1 Solution", period: "Feb 2026 — Present", type: "Full-time · Remote", live: true,
+  { role: "Associate Software Engineer", co: "M1 Solution",  type: "Full-time · Remote", live: true,
     pts: ["Architecting FastAPI service layer for live airline-operations platform; designed service contracts from scratch.", "Engineered PostgreSQL schema cutting data access latency 30% via query optimisation & indexing."] },
-  { role: "AI/ML Intern — Team Lead", co: "WorldWise Solutions", period: "Feb — May 2026", type: "Internship · Remote", live: false,
+  { role: "AI Engineer — Team Lead", co: "WorldWise Solutions", type: "Contract · Remote", live: false,
     pts: ["Built HadeesGPT — Hadees RAG (LangChain + ChromaDB) hitting 92% query accuracy.", "Directed 3-engineer ML team shipping production AI systems."] },
-  { role: "Python Backend Intern — Lead", co: "CodeCelix", period: "Sep — Nov 2025", type: "Internship · Remote", live: false,
+  { role: "Backend Developer — Lead", co: "CodeCelix",  type: "Contract · Remote", live: false,
     pts: ["Delivered 8 production DRF endpoints integrated with React frontend.", "Cut integration turnaround 35% via code reviews across 3-member team."] },
 ];
 
@@ -367,7 +367,7 @@ function Hero() {
             {/* Status */}
             <div className="in-up" style={{ animationDelay:".05s", display:"inline-flex", alignItems:"center", gap:9, padding:"5px 14px", background:"rgba(16,185,129,.08)", border:"1px solid rgba(16,185,129,.2)", borderRadius:99, marginBottom:40 }}>
               <div style={{ width:6, height:6, borderRadius:"50%", background:"#10b981", boxShadow:"0 0 7px #10b981", animation:"glow-pulse 2s infinite" }} />
-              <span style={{ fontFamily:"var(--mono)", fontSize:11.5, color:"#6ee7b7" }}>Open to work · Backend & AI Systems</span>
+              <span style={{ fontFamily:"var(--mono)", fontSize:11.5, color:"#6ee7b7" }}>Available · Backend & AI Systems Engineering</span>
             </div>
 
             {/* Headline */}
@@ -388,8 +388,8 @@ function Hero() {
             {/* Bio */}
             <p className="in-up" style={{ animationDelay:".38s", fontSize:15.5, lineHeight:1.8, color:"rgba(232,232,240,.5)", maxWidth:500, marginBottom:48 }}>
               Python Backend Developer. Currently at{" "}
-              <span style={{ color:"var(--chalk)", fontWeight:600 }}>M1 Solution</span> architecting FastAPI services for live airline-ops. Led teams at WorldWise & CodeCelix.
-              {" "}<span style={{ color:"#818cf8" }}>2nd year. Already in production.</span>
+              <span style={{ color:"var(--chalk)", fontWeight:600 }}>M1 Solution</span> architecting FastAPI services for live airline-ops. Led engineering teams at WorldWise & CodeCelix delivering production AI systems.
+              {" "}<span style={{ color:"#818cf8" }}>3 companies. All in production.</span>
             </p>
 
             {/* CTAs */}
@@ -644,7 +644,7 @@ function Contact() {
           Let's build something<br />that actually ships.
         </h2>
         <p style={{ fontSize:15.5, color:"rgba(232,232,240,.45)", lineHeight:1.8, marginBottom:50, maxWidth:440, margin:"0 auto 50px" }}>
-          Open to backend internships, junior roles, and freelance contracts. I write code that runs in production — not in tutorials.
+          Open to backend engineering roles, AI systems contracts, and selective freelance engagements. I write code that runs in production — not in tutorials.
         </p>
         <div style={{ display:"flex", gap:12, justifyContent:"center", flexWrap:"wrap", marginBottom:44 }}>
           <a href="mailto:tashiftoor12345@gmail.com" style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"13px 28px", background:"var(--chalk)", color:"var(--ink)", borderRadius:11, fontFamily:"var(--display)", fontWeight:700, fontSize:14, textDecoration:"none", transition:"opacity .2s, transform .15s" }}
