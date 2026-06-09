@@ -24,7 +24,7 @@ function useTypewriter(words: string[], speed: number = 70, pause: number = 2200
   return text;
 }
 
-function useInView(threshold: number = 0.12) {
+function useInView(threshold: number = 0.12): [React.RefObject<HTMLDivElement>, boolean] {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState<boolean>(false);
   useEffect(() => {
@@ -87,11 +87,11 @@ const PROJECTS = [
 ];
 
 const EXP = [
-  { role: "Associate Software Engineer", co: "M1 Solution",  type: "Full-time · Remote", live: true,
+  { role: "Associate Software Engineer", co: "M1 Solution", period: "Feb 2026 — Present", type: "Full-time · Remote", live: true,
     pts: ["Architecting FastAPI service layer for live airline-operations platform; designed service contracts from scratch.", "Engineered PostgreSQL schema cutting data access latency 30% via query optimisation & indexing."] },
-  { role: "AI Engineer — Team Lead", co: "WorldWise Solutions", type: "Contract · Remote", live: false,
+  { role: "AI Engineer — Team Lead", co: "WorldWise Solutions", period: "Feb — May 2026", type: "Contract · Remote", live: false,
     pts: ["Built HadeesGPT — Hadees RAG (LangChain + ChromaDB) hitting 92% query accuracy.", "Directed 3-engineer ML team shipping production AI systems."] },
-  { role: "Backend Developer — Lead", co: "CodeCelix",  type: "Contract · Remote", live: false,
+  { role: "Backend Developer — Lead", co: "CodeCelix", period: "Sep — Nov 2025", type: "Contract · Remote", live: false,
     pts: ["Delivered 8 production DRF endpoints integrated with React frontend.", "Cut integration turnaround 35% via code reviews across 3-member team."] },
 ];
 
@@ -430,7 +430,7 @@ function Hero() {
                 {/* Photo area */}
                 <div style={{ position:"relative", aspectRatio:"4/5", background:"linear-gradient(160deg, #16161e 0%, #0f0f16 100%)", display:"flex", alignItems:"center", justifyContent:"center" }}>
                   <img src="/1.png" alt="Muhammad Tashif" style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}
-                    onError={e => { e.target.style.display="none"; }} />
+                    onError={e => { (e.target as HTMLImageElement).style.display="none"; }} />
                   {/* Code overlay on hover */}
                   <div style={{ position:"absolute", bottom:43, left:67, right:16, background:"rgba(12,12,16,.85)", borderRadius:10, padding:"12px 14px", backdropFilter:"blur(8px)", border:"1px solid var(--wire)" }}>
                     <div style={{ fontFamily:"var(--mono)", fontSize:10.5, color:"#6ee7b7", marginBottom:4 }}>$ whoami</div>
